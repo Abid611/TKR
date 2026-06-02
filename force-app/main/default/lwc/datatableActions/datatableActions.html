@@ -1,0 +1,12 @@
+<template>
+    <lightning-card title="Account Management">
+        <lightning-datatable
+            key-field="Id"
+            columns={columns}
+            data={accounts}
+            draft-values={draftValues}
+            onsave={handleSave}
+            hide-checkbox-column>
+        </lightning-datatable>
+    </lightning-card>
+</template>

@@ -1,0 +1,80 @@
+<template>
+    <div class={cartPanelClass}>
+        <div class="cart-header">
+            <h2 class="cart-title">
+                Cart
+                <template if:true={itemCount}>
+                    <span class="item-count">({itemCount} item{itemCountSuffix})</span>
+                </template>
+            </h2>
+            <button class="close-btn" onclick={handleClose} aria-label="Close cart">&#x2715;</button>
+        </div>
+
+        <template if:true={isEmpty}>
+            <div class="empty-cart">
+                <div class="empty-icon">&#x1F6D2;</div>
+                <p>Your cart is empty.</p>
+                <p class="empty-sub">Add items from the menu to get started.</p>
+            </div>
+        </template>
+
+        <template if:false={isEmpty}>
+            <div class="cart-body">
+                <div class="cart-items">
+                    <template for:each={displayItems} for:item="cartItem">
+                        <div key={cartItem.id} class="cart-item">
+                            <img src={cartItem.imageUrl} alt={cartItem.name} class="cart-item-img" />
+                            <div class="cart-item-info">
+                                <p class="cart-item-name">{cartItem.name}</p>
+                                <p class="cart-item-unit-price">{cartItem.formattedUnitPrice} each</p>
+                            </div>
+                            <div class="qty-controls">
+                                <button class="qty-btn" data-id={cartItem.id} onclick={handleDecrement}>&#x2212;</button>
+                                <span class="qty-value">{cartItem.quantity}</span>
+                                <button class="qty-btn" data-id={cartItem.id} onclick={handleIncrement}>+</button>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+
+                <div class="cart-footer">
+                    <div class="input-group">
+                        <label class="input-label" for="tableNumber">Table Number</label>
+                        <input
+                            id="tableNumber"
+                            type="text"
+                            class="cart-input"
+                            value={tableNumber}
+                            onchange={handleTableChange}
+                            placeholder="e.g. T-12"
+                            maxlength="10" />
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label" for="orderNotes">Notes</label>
+                        <textarea
+                            id="orderNotes"
+                            class="cart-input cart-textarea"
+                            value={notes}
+                            onchange={handleNotesChange}
+                            placeholder="Special instructions, allergies...">
+                        </textarea>
+                    </div>
+
+                    <div class="total-row">
+                        <span class="total-label">Total</span>
+                        <span class="total-amount">{formattedTotal}</span>
+                    </div>
+
+                    <lightning-button
+                        label={checkoutLabel}
+                        variant="brand"
+                        class="checkout-btn"
+                        disabled={isPlacingOrder}
+                        onclick={handleCheckout}>
+                    </lightning-button>
+                </div>
+            </div>
+        </template>
+    </div>
+</template>

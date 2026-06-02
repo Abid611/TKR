@@ -1,0 +1,33 @@
+<template>
+    <lightning-card title="Account Details"> 
+        <template if:true={account}>
+            <p class="slds-p-horizantal_small">
+                <strong> Name: </strong> {account.Name} <br/>
+                <strong> Phone: </strong> {account.Phone} <br/>
+                <strong> Total Opportunity: </strong> {account.Total_Opportunity__c} <br/>
+            </p>
+        </template>
+    </lightning-card>
+    <lightning-card title="Account Contacts">
+        <lightning-datatable 
+            key-field="Id"
+            columns={contactColumns}
+            data={contacts}>
+        </lightning-datatable>
+    </lightning-card>
+    <lightning-card title="Account Opportunities">
+            <lightning-datatable
+            key-field="Id"
+            columns={opportunityColumns}
+            data={opportunities}>
+        </lightning-datatable>
+    </lightning-card>
+    <lightning-card title="Account Cases">
+        <lightning-datatable 
+            key-field="Id"
+            columns={caseColumns}
+            data={cases}>
+        </lightning-datatable>
+    </lightning-card>
+    
+</template>

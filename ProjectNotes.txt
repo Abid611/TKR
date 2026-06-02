@@ -1,0 +1,3 @@
+when creating new field for graphql ui api usage before deploying lwc component use below in workbench and to check that field is available to ui api or schema cache need to be refreshed
+/services/data/v66.0/ui-api/object-info/Menu_Item__c
+

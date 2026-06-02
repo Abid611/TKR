@@ -1,0 +1,14 @@
+.menu-section { min-height: 80px; }
+
+.loading-state {
+    display: flex;
+    justify-content: center;
+    padding: 2rem 0;
+}
+
+.error-state {
+    text-align: center;
+    color: #c0392b;
+    padding: 1rem;
+    font-size: 0.9rem;
+}

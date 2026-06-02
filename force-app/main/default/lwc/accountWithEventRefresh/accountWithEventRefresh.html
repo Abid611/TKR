@@ -1,0 +1,11 @@
+<template>
+    <lightning-card title="Account Data using Platform Event">
+        <template if:true={Account}>
+            <lightning-datatable 
+                key-field="Id"
+                columns={columns}
+                data={Account}>
+            </lightning-datatable>
+        </template>
+    </lightning-card>
+</template>

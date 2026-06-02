@@ -1,0 +1,125 @@
+<template>
+
+    <!-- ── Confirmation screen (shown after successful order) ── -->
+    <template if:true={orderNumber}>
+        <div class="confirmation-screen">
+            <div class="confirmation-card">
+                <div class="confirm-icon">&#x2705;</div>
+                <h1 class="confirm-heading">Order Placed!</h1>
+                <p class="confirm-sub">Your order is being prepared.</p>
+
+                <div class="order-number-box">
+                    <p class="order-number-label">Your Order Number</p>
+                    <p class="order-number">{orderNumber}</p>
+                </div>
+
+                <p class="confirm-note">
+                    Keep this number to track your order status.
+                </p>
+
+                <lightning-button
+                    label="Track This Order"
+                    variant="brand"
+                    onclick={handleTrackOrder}
+                    class="new-order-btn">
+                </lightning-button>
+                <lightning-button
+                    label="Place Another Order"
+                    variant="neutral"
+                    onclick={handleNewOrder}
+                    class="new-order-btn">
+                </lightning-button>
+            </div>
+        </div>
+    </template>
+
+    <!-- ── Normal menu layout (hidden while confirmation is showing) ── -->
+    <template if:false={orderNumber}>
+        <div class="menu-layout">
+
+            <!-- Mobile-only top bar with filter toggle -->
+            <div class="mobile-topbar">
+                <lightning-button
+                    label="Filters"
+                    icon-name="utility:filter"
+                    onclick={handleFilterToggle}>
+                </lightning-button>
+            </div>
+
+            <!-- Backdrop — closes all drawers on tap -->
+            <div class={backdropClass} onclick={handleBackdropClick}></div>
+
+            <!-- Left panel: filters (20% desktop / slide-in drawer mobile) -->
+            <div class={leftPanelClass}>
+                <c-menu-filter
+                    onfilterchange={handleFilterChange}
+                    onclosedrawer={handleCloseFilter}>
+                </c-menu-filter>
+            </div>
+
+            <!-- Middle panel: item grid (60%) -->
+            <div class="middle-panel">
+                <template if:true={hasFilteredItems}>
+                    <div class="items-grid">
+                        <template for:each={filteredItems} for:item="item">
+                            <div
+                                key={item.Id}
+                                class="item-card"
+                                data-id={item.Id}
+                                onclick={handleItemClick}>
+                                <img
+                                    src={item.imageUrl}
+                                    alt={item.Name.value}
+                                    class="card-img" />
+                                <div class="card-body">
+                                    <h3 class="card-title">{item.Name.value}</h3>
+                                    <p class="card-category">{item.Category__c.value}</p>
+                                    <p class="card-price">{item.formattedPrice}</p>
+                                    <template if:true={item.Description__c.value}>
+                                        <p class="card-desc">{item.Description__c.value}</p>
+                                    </template>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+
+                <template if:false={hasFilteredItems}>
+                    <div class="empty-state">
+                        <p>No items match your filters.</p>
+                    </div>
+                </template>
+            </div>
+
+            <!-- Right panel: item detail (20% desktop / bottom sheet mobile) -->
+            <div class={rightPanelClass}>
+                <c-menu-item-detail
+                    item={selectedItem}
+                    onaddtocart={handleAddToCart}
+                    onclosedetail={handleCloseDetail}>
+                </c-menu-item-detail>
+            </div>
+
+        </div>
+
+        <!-- Cart FAB — floating button, always visible -->
+        <button class="cart-fab" onclick={handleCartToggle} aria-label="Open cart">
+            &#x1F6D2;
+            <template if:true={cartCount}>
+                <span class="cart-badge">{cartCount}</span>
+            </template>
+        </button>
+
+        <!-- Cart drawer — child component, slides in from right -->
+        <c-cart-t-k-r
+            items={cartItems}
+            is-open={isCartOpen}
+            is-placing-order={isPlacingOrder}
+            onquantitychange={handleQuantityChange}
+            oncheckout={handleCheckout}
+            onclosecart={handleCloseCart}>
+        </c-cart-t-k-r>
+
+    </template>
+
+</template>

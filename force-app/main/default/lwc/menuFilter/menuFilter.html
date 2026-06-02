@@ -1,0 +1,69 @@
+<template>
+    <div class="filter-panel">
+        <!-- Drawer header: title + close button (close button visible on mobile only) -->
+        <div class="drawer-header">
+            <span class="drawer-title">Filters</span>
+            <button class="close-btn" onclick={handleCloseDrawer} aria-label="Close filters">&#x2715;</button>
+        </div>
+
+        <div class="filter-section">
+            <lightning-input
+                type="search"
+                label="Search"
+                placeholder="Search items..."
+                value={filters.searchTerm}
+                onchange={handleSearchChange}>
+            </lightning-input>
+        </div>
+
+        <div class="filter-section">
+            <p class="filter-label">Category</p>
+            <template for:each={categories} for:item="cat">
+                <div key={cat.value} class="category-check">
+                    <input
+                        type="checkbox"
+                        id={cat.value}
+                        data-value={cat.value}
+                        onchange={handleCategoryChange} />
+                    <label for={cat.value}>{cat.label}</label>
+                </div>
+            </template>
+        </div>
+
+        <div class="filter-section">
+            <p class="filter-label">Price Range</p>
+            <lightning-input
+                type="number"
+                label="Min Price"
+                min="0"
+                formatter="currency"
+                value={filters.minPrice}
+                onchange={handleMinPriceChange}>
+            </lightning-input>
+            <lightning-input
+                type="number"
+                label="Max Price"
+                min="0"
+                formatter="currency"
+                value={filters.maxPrice}
+                onchange={handleMaxPriceChange}>
+            </lightning-input>
+        </div>
+
+        <div class="filter-section">
+            <lightning-input
+                type="toggle"
+                label="Available Only"
+                checked={filters.availableOnly}
+                onchange={handleAvailabilityChange}>
+            </lightning-input>
+        </div>
+
+        <lightning-button
+            label="Reset Filters"
+            variant="neutral"
+            onclick={handleReset}
+            class="reset-btn">
+        </lightning-button>
+    </div>
+</template>

@@ -1,0 +1,26 @@
+<template>
+    <div class="menu-section">
+
+        <template if:true={isLoading}>
+            <div class="loading-state">
+                <lightning-spinner alternative-text="Loading menu" size="small"></lightning-spinner>
+            </div>
+        </template>
+
+        <template if:true={hasError}>
+            <div class="error-state">Failed to load menu items.</div>
+        </template>
+
+        <template if:true={hasData}>
+            <lightning-datatable
+                key-field="Id"
+                data={menuItems}
+                columns={columns}
+                draft-values={draftValues}
+                hide-checkbox-column
+                onsave={handleSave}>
+            </lightning-datatable>
+        </template>
+
+    </div>
+</template>

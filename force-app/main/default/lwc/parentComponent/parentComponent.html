@@ -1,0 +1,10 @@
+<template>
+    <lightning-card title="Parent Component"> 
+        <p> Send Data to Parent</p>
+        <lightning-input type="text" onchange={inputChangeHandler}></lightning-input>
+        <c-child-component parent-data={dataSendToChild} onsend={handleChildData}></c-child-component>
+        <div>
+            <p> Data come from child: {dataComeFromChild}</p>
+        </div>
+    </lightning-card>
+</template>

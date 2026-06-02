@@ -1,0 +1,104 @@
+<template>
+    <div class="tracker-page">
+
+        <!-- Loading state -->
+        <template if:true={isLoading}>
+            <div class="loading-state">
+                <lightning-spinner alternative-text="Loading order details" size="medium"></lightning-spinner>
+                <p class="loading-text">Fetching your order...</p>
+            </div>
+        </template>
+
+        <!-- Search form: shown when not loading and no result yet -->
+        <template if:true={showForm}>
+            <div class="tracker-card">
+                <h1 class="tracker-heading">Track Your Order</h1>
+                <p class="tracker-sub">
+                    Enter the order number you received on your confirmation screen.
+                </p>
+
+                <div class="search-row">
+                    <input
+                        type="text"
+                        class="order-input"
+                        placeholder="e.g. O-0000000001"
+                        value={orderInput}
+                        oninput={handleInputChange}
+                        onkeydown={handleKeyDown}
+                    />
+                    <button
+                        class="track-btn"
+                        onclick={handleTrack}
+                        disabled={isTrackDisabled}>
+                        Track Order
+                    </button>
+                </div>
+
+                <template if:true={errorMessage}>
+                    <div class="error-box">
+                        <p class="error-text">{errorMessage}</p>
+                    </div>
+                </template>
+            </div>
+        </template>
+
+        <!-- Order result card -->
+        <template if:true={showResult}>
+            <div class="result-card">
+
+                <div class="result-header">
+                    <div class="order-id-block">
+                        <p class="result-label">Order Number</p>
+                        <p class="result-order-number">{orderData.orderName}</p>
+                    </div>
+                    <span class="status-badge" style={statusStyle}>{orderData.status}</span>
+                </div>
+
+                <div class="result-meta">
+                    <template if:true={orderData.tableNumber}>
+                        <div class="meta-item">
+                            <span class="meta-label">Table</span>
+                            <span class="meta-value">{orderData.tableNumber}</span>
+                        </div>
+                    </template>
+                    <template if:true={formattedOrderTime}>
+                        <div class="meta-item">
+                            <span class="meta-label">Ordered At</span>
+                            <span class="meta-value">{formattedOrderTime}</span>
+                        </div>
+                    </template>
+                </div>
+
+                <div class="items-section">
+                    <h3 class="items-heading">Items Ordered</h3>
+                    <div class="items-list">
+                        <template for:each={displayItems} for:item="item">
+                            <div key={item.menuItemName} class="item-row">
+                                <span class="item-name">{item.menuItemName}</span>
+                                <span class="item-qty">x{item.quantity}</span>
+                                <span class="item-price">{item.formattedItemTotal}</span>
+                            </div>
+                        </template>
+                    </div>
+                    <div class="total-divider"></div>
+                    <div class="total-row">
+                        <span class="total-label">Total</span>
+                        <span class="total-amount">{formattedTotal}</span>
+                    </div>
+                </div>
+
+                <template if:true={orderData.notes}>
+                    <div class="notes-section">
+                        <p class="meta-label">Special Instructions</p>
+                        <p class="notes-text">{orderData.notes}</p>
+                    </div>
+                </template>
+
+                <button class="track-another-btn" onclick={handleReset}>
+                    Track Another Order
+                </button>
+            </div>
+        </template>
+
+    </div>
+</template>

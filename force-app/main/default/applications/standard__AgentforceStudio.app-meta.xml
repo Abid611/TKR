@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <formFactors>Large</formFactors>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
+    <isOmniPinnedViewEnabled>false</isOmniPinnedViewEnabled>
+    <label>Agentforce Studio</label>
+    <navType>Console</navType>
+    <tabs>Coding</tabs>
+    <tabs>standard-AgentforceStudio</tabs>
+    <tabs>Menu_Item__c</tabs>
+    <tabs>Order__c</tabs>
+    <tabs>Order_Item__c</tabs>
+    <uiType>Lightning</uiType>
+    <workspaceConfig>
+        <mappings>
+            <tab>Coding</tab>
+        </mappings>
+        <mappings>
+            <tab>Menu_Item__c</tab>
+        </mappings>
+        <mappings>
+            <tab>Order_Item__c</tab>
+        </mappings>
+        <mappings>
+            <tab>Order__c</tab>
+        </mappings>
+        <mappings>
+            <tab>standard-AgentforceStudio</tab>
+        </mappings>
+    </workspaceConfig>
+</CustomApplication>

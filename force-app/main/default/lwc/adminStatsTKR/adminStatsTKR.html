@@ -1,0 +1,73 @@
+<template>
+    <div class="stats-container">
+
+        <template if:true={isLoading}>
+            <div class="loading-state">
+                <lightning-spinner alternative-text="Loading stats" size="small"></lightning-spinner>
+            </div>
+        </template>
+
+        <template if:true={hasError}>
+            <div class="error-state">Failed to load statistics.</div>
+        </template>
+
+        <template if:true={hasData}>
+
+            <!-- Three stat cards -->
+            <div class="stat-cards">
+                <div class="stat-card">
+                    <p class="stat-label">Total Orders</p>
+                    <p class="stat-value">{stats.totalOrders}</p>
+                </div>
+                <div class="stat-card">
+                    <p class="stat-label">Total Revenue</p>
+                    <p class="stat-value">{formattedRevenue}</p>
+                </div>
+                <div class="stat-card">
+                    <p class="stat-label">Avg Order Value</p>
+                    <p class="stat-value">{formattedAvg}</p>
+                </div>
+            </div>
+
+            <!-- Status breakdown + Top items -->
+            <div class="lower-row">
+
+                <div class="panel">
+                    <h3 class="panel-title">Status Breakdown</h3>
+                    <template if:true={hasStatusData}>
+                        <div class="status-chips">
+                            <template for:each={statusBreakdownDisplay} for:item="item">
+                                <span key={item.status} class="status-chip" style={item.style}>
+                                    {item.status}: {item.count}
+                                </span>
+                            </template>
+                        </div>
+                    </template>
+                    <template if:false={hasStatusData}>
+                        <p class="no-data">No orders in this period.</p>
+                    </template>
+                </div>
+
+                <div class="panel">
+                    <h3 class="panel-title">Top Items</h3>
+                    <template if:true={hasTopItems}>
+                        <ul class="top-items-list">
+                            <template for:each={topItemsDisplay} for:item="item">
+                                <li key={item.name} class="top-item">
+                                    <span class="item-rank">{item.rank}.</span>
+                                    <span class="item-name">{item.name}</span>
+                                    <span class="item-qty">{item.totalQty} sold</span>
+                                </li>
+                            </template>
+                        </ul>
+                    </template>
+                    <template if:false={hasTopItems}>
+                        <p class="no-data">No item sales in this period.</p>
+                    </template>
+                </div>
+
+            </div>
+        </template>
+
+    </div>
+</template>

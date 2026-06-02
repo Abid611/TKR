@@ -1,0 +1,148 @@
+.detail-panel {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.item-image-container {
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+.item-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+}
+
+.item-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 0 0.25rem;
+}
+
+.item-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #032d60;
+    margin: 0;
+}
+
+.item-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.category-badge {
+    background: #e8f4fd;
+    color: #0176d3;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+}
+
+.availability-pill {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+}
+
+.availability-pill.available {
+    background: #e8f6ee;
+    color: #2e7d32;
+}
+
+.availability-pill.unavailable {
+    background: #fdecea;
+    color: #c62828;
+}
+
+.price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+}
+
+.price-label {
+    font-size: 0.8rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.price-value {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #032d60;
+}
+
+.item-description {
+    font-size: 0.875rem;
+    color: #555;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.cart-btn {
+    margin-top: 0.5rem;
+}
+
+.empty-state {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    color: #888;
+    padding: 2rem 1rem;
+}
+
+.empty-icon {
+    font-size: 2.5rem;
+}
+
+.empty-text {
+    font-size: 0.9rem;
+    text-align: center;
+    line-height: 1.4;
+}
+
+/* ── Bottom sheet close button (mobile only) ── */
+.sheet-close-btn {
+    display: none;
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    background: #f0f0f0;
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+    cursor: pointer;
+    color: #444;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+.sheet-close-btn:hover {
+    background: #e0e0e0;
+}
+
+@media (max-width: 768px) {
+    .detail-panel {
+        position: relative;
+    }
+    .sheet-close-btn {
+        display: flex;
+    }
+}

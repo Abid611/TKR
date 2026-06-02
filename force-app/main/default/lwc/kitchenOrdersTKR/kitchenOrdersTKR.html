@@ -1,0 +1,129 @@
+<template>
+    <div class="kitchen-page">
+
+        <!-- Header -->
+        <div class="kitchen-header">
+            <div class="header-left">
+                <h1 class="page-title">Kitchen Queue</h1>
+                <span class="order-count">{activeOrderCount} active</span>
+            </div>
+            <button class="refresh-btn" onclick={handleRefresh} disabled={isLoading}>
+                Refresh
+            </button>
+        </div>
+
+        <!-- Loading -->
+        <template if:true={isLoading}>
+            <div class="loading-state">
+                <lightning-spinner alternative-text="Loading orders" size="medium"></lightning-spinner>
+            </div>
+        </template>
+
+        <!-- Content -->
+        <template if:false={isLoading}>
+
+            <!-- Empty state -->
+            <template if:true={isEmpty}>
+                <div class="empty-state">
+                    <p class="empty-heading">No active orders</p>
+                    <p class="empty-sub">New orders will appear here automatically.</p>
+                </div>
+            </template>
+
+            <!-- Order cards -->
+            <template if:false={isEmpty}>
+                <div class="orders-grid">
+                    <template for:each={displayOrders} for:item="order">
+                        <div key={order.orderName} class={order.cardClass}>
+
+                            <!-- Card header: order number + status badge -->
+                            <div class="card-header">
+                                <span class="order-num">{order.orderName}</span>
+                                <span class="status-badge" style={order.statusStyle}>{order.status}</span>
+                            </div>
+
+                            <!-- Table + elapsed time -->
+                            <div class="card-meta">
+                                <template if:true={order.tableNumber}>
+                                    <span class="meta-item">Table {order.tableNumber}</span>
+                                </template>
+                                <span class="meta-item elapsed">{order.elapsedLabel}</span>
+                            </div>
+
+                            <!-- Food items -->
+                            <ul class="items-list">
+                                <template for:each={order.items} for:item="item">
+                                    <li key={item.menuItemName} class="item-line">
+                                        <span class="item-qty">x{item.quantity}</span>
+                                        <span class="item-name">{item.menuItemName}</span>
+                                    </li>
+                                </template>
+                            </ul>
+
+                            <!-- Special instructions -->
+                            <template if:true={order.notes}>
+                                <div class="notes-box">
+                                    <span class="notes-label">Note: </span>
+                                    <span class="notes-text">{order.notes}</span>
+                                </div>
+                            </template>
+
+                            <!-- Action buttons -->
+                            <div class="card-actions">
+                                <template if:true={order.isConfirmingCancel}>
+                                    <div class="cancel-confirm-panel">
+                                        <textarea
+                                            class="cancel-reason-input"
+                                            placeholder="Reason for cancellation (required)"
+                                            oninput={handleCancelReasonChange}
+                                            rows="2"></textarea>
+                                        <div class="cancel-confirm-btns">
+                                            <button
+                                                class="btn-confirm-cancel"
+                                                data-order-id={order.orderId}
+                                                onclick={handleConfirmCancel}
+                                                disabled={isConfirmCancelDisabled}>
+                                                Confirm Cancel
+                                            </button>
+                                            <button
+                                                class="btn-back"
+                                                onclick={handleBackFromCancel}
+                                                disabled={isUpdating}>
+                                                Back
+                                            </button>
+                                        </div>
+                                    </div>
+                                </template>
+                                <template if:false={order.isConfirmingCancel}>
+                                    <template if:true={order.nextStatus}>
+                                        <button
+                                            class="btn-primary"
+                                            data-order-id={order.orderId}
+                                            data-new-status={order.nextStatus}
+                                            onclick={handleStatusChange}
+                                            disabled={isUpdating}>
+                                            {order.nextLabel}
+                                        </button>
+                                    </template>
+                                    <template if:true={order.canCancel}>
+                                        <button
+                                            class="btn-cancel"
+                                            data-order-id={order.orderId}
+                                            data-new-status="Cancelled"
+                                            onclick={handleStatusChange}
+                                            disabled={isUpdating}>
+                                            Cancel
+                                        </button>
+                                    </template>
+                                </template>
+                            </div>
+
+                        </div>
+                    </template>
+                </div>
+            </template>
+
+        </template>
+
+    </div>
+</template>

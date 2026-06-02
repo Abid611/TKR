@@ -1,0 +1,131 @@
+.stats-container { padding: 0; }
+
+.loading-state {
+    display: flex;
+    justify-content: center;
+    padding: 2rem 0;
+}
+
+.error-state {
+    text-align: center;
+    color: #c0392b;
+    padding: 1rem;
+    font-size: 0.9rem;
+}
+
+/* ── Stat cards ── */
+.stat-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.stat-card {
+    background: #f8f9fc;
+    border: 1px solid #e8ecf0;
+    border-radius: 10px;
+    padding: 1.25rem;
+    text-align: center;
+}
+
+.stat-label {
+    font-size: 0.78rem;
+    color: #666;
+    margin: 0 0 0.35rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+}
+
+.stat-value {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #032d60;
+    margin: 0;
+}
+
+/* ── Lower row ── */
+.lower-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.panel {
+    background: #f8f9fc;
+    border: 1px solid #e8ecf0;
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+}
+
+.panel-title {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #032d60;
+    margin: 0 0 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* ── Status chips ── */
+.status-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.status-chip {
+    padding: 0.3rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 600;
+}
+
+/* ── Top items ── */
+.top-items-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.top-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid #eef0f4;
+    font-size: 0.88rem;
+}
+
+.top-item:last-child { border-bottom: none; }
+
+.item-rank {
+    color: #aaa;
+    font-weight: 700;
+    min-width: 1.2rem;
+    font-size: 0.8rem;
+}
+
+.item-name {
+    flex: 1;
+    color: #032d60;
+    font-weight: 500;
+}
+
+.item-qty {
+    color: #0176d3;
+    font-weight: 700;
+    font-size: 0.8rem;
+}
+
+.no-data {
+    font-size: 0.85rem;
+    color: #aaa;
+    margin: 0;
+}
+
+@media (max-width: 700px) {
+    .stat-cards { grid-template-columns: 1fr; }
+    .lower-row  { grid-template-columns: 1fr; }
+}

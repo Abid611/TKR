@@ -1,0 +1,31 @@
+<template>
+    <div class="orders-section">
+
+        <template if:true={isLoading}>
+            <div class="loading-state">
+                <lightning-spinner alternative-text="Loading orders" size="small"></lightning-spinner>
+            </div>
+        </template>
+
+        <template if:true={hasError}>
+            <div class="error-state">Failed to load orders.</div>
+        </template>
+
+        <template if:true={hasData}>
+            <template if:true={isEmpty}>
+                <div class="empty-state">
+                    <p class="empty-heading">No orders in this period.</p>
+                </div>
+            </template>
+            <template if:false={isEmpty}>
+                <lightning-datatable
+                    key-field="orderId"
+                    data={orders}
+                    columns={columns}
+                    hide-checkbox-column>
+                </lightning-datatable>
+            </template>
+        </template>
+
+    </div>
+</template>

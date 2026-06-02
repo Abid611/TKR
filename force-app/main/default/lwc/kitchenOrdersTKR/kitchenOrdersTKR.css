@@ -1,0 +1,297 @@
+/* ── Page ── */
+.kitchen-page {
+    padding: 1rem;
+    min-height: 80vh;
+    background: #f4f6f9;
+    box-sizing: border-box;
+}
+
+/* ── Header ── */
+.kitchen-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.25rem;
+}
+
+.header-left {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+}
+
+.page-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #032d60;
+    margin: 0;
+}
+
+.order-count {
+    font-size: 0.85rem;
+    color: #888;
+    font-weight: 500;
+}
+
+.refresh-btn {
+    background: #0176d3;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 0.45rem 1rem;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s ease;
+}
+
+.refresh-btn:hover:not(:disabled) { background: #014486; }
+.refresh-btn:disabled { background: #b0c8e8; cursor: not-allowed; }
+
+/* ── Loading ── */
+.loading-state {
+    display: flex;
+    justify-content: center;
+    padding: 4rem 0;
+}
+
+/* ── Empty state ── */
+.empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.empty-heading {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #032d60;
+    margin: 0 0 0.4rem;
+}
+
+.empty-sub {
+    font-size: 0.9rem;
+    color: #888;
+    margin: 0;
+}
+
+/* ── Orders grid ── */
+.orders-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+}
+
+/* ── Order card ── */
+.order-card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border-left: 4px solid #ccc;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Status-colored left border — matches the badge colors */
+.card-new       { border-left-color: #0176d3; }
+.card-accepted  { border-left-color: #f4a423; }
+.card-preparing { border-left-color: #9b59b6; }
+.card-ready     { border-left-color: #27ae60; }
+
+/* ── Card header ── */
+.card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.85rem 1rem 0.4rem;
+}
+
+.order-num {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #032d60;
+}
+
+.status-badge {
+    padding: 0.25rem 0.65rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+/* ── Meta row ── */
+.card-meta {
+    display: flex;
+    gap: 1rem;
+    padding: 0 1rem 0.5rem;
+}
+
+.meta-item {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.elapsed {
+    color: #e67e22;
+    font-weight: 600;
+}
+
+/* ── Items list ── */
+.items-list {
+    list-style: none;
+    margin: 0;
+    padding: 0.5rem 1rem;
+    border-top: 1px solid #f0f0f0;
+    flex: 1;
+}
+
+.item-line {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.25rem 0;
+    font-size: 0.88rem;
+}
+
+.item-qty {
+    font-weight: 700;
+    color: #0176d3;
+    min-width: 1.75rem;
+}
+
+.item-name {
+    color: #032d60;
+}
+
+/* ── Notes ── */
+.notes-box {
+    margin: 0 1rem 0.5rem;
+    background: #fffbe6;
+    border: 1px solid #f0d060;
+    border-radius: 6px;
+    padding: 0.4rem 0.6rem;
+    font-size: 0.8rem;
+}
+
+.notes-label {
+    font-weight: 700;
+    color: #b7860b;
+}
+
+.notes-text {
+    color: #555;
+}
+
+/* ── Action buttons ── */
+.card-actions {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    border-top: 1px solid #f0f0f0;
+}
+
+.btn-primary {
+    flex: 1;
+    background: #0176d3;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 0.55rem 0.75rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s ease;
+}
+
+.btn-primary:hover:not(:disabled) { background: #014486; }
+.btn-primary:disabled { background: #b0c8e8; cursor: not-allowed; }
+
+.btn-cancel {
+    background: transparent;
+    color: #c0392b;
+    border: 1.5px solid #c0392b;
+    border-radius: 6px;
+    padding: 0.55rem 0.75rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.btn-cancel:hover:not(:disabled) { background: #c0392b; color: #fff; }
+.btn-cancel:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ── Cancel confirm panel ── */
+.cancel-confirm-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.cancel-reason-input {
+    width: 100%;
+    border: 1.5px solid #ddd;
+    border-radius: 6px;
+    padding: 0.45rem 0.6rem;
+    font-size: 0.83rem;
+    font-family: inherit;
+    resize: none;
+    box-sizing: border-box;
+    color: #032d60;
+    background: #fafafa;
+    transition: border-color 0.15s ease;
+}
+
+.cancel-reason-input:focus {
+    outline: none;
+    border-color: #c0392b;
+}
+
+.cancel-confirm-btns {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.btn-confirm-cancel {
+    flex: 1;
+    background: #c0392b;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 0.55rem 0.75rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s ease;
+}
+
+.btn-confirm-cancel:hover:not(:disabled) { background: #922b21; }
+.btn-confirm-cancel:disabled { background: #e8a59e; cursor: not-allowed; }
+
+.btn-back {
+    background: transparent;
+    color: #555;
+    border: 1.5px solid #ccc;
+    border-radius: 6px;
+    padding: 0.55rem 0.75rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.btn-back:hover:not(:disabled) { background: #f0f0f0; color: #032d60; }
+.btn-back:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ── Mobile ── */
+@media (max-width: 600px) {
+    .orders-grid { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,12 @@
+<template>
+    <lightning-card title="Related Cases"> 
+        <template if:true={cases}>
+            <lightning-datatable 
+                key-field="Id"
+                columns={casesColumns}
+                data={cases}
+                hide-checkbox-column="true">
+            </lightning-datatable>
+        </template>
+    </lightning-card>
+</template>

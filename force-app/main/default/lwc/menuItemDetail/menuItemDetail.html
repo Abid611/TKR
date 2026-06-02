@@ -1,0 +1,48 @@
+<template>
+    <div class="detail-panel">
+        <template if:true={hasItem}>
+            <!-- Close button — visible on mobile bottom sheet only -->
+            <button class="sheet-close-btn" onclick={handleClose} aria-label="Close">&#x2715;</button>
+
+            <div class="item-image-container">
+                <img
+                    src={item.imageUrl}
+                    alt={item.Name.value}
+                    class="item-image" />
+            </div>
+
+            <div class="item-info">
+                <h2 class="item-name">{item.Name.value}</h2>
+
+                <div class="item-meta">
+                    <span class="category-badge">{item.Category__c.value}</span>
+                    <span class={availabilityClass}>{availabilityText}</span>
+                </div>
+
+                <div class="price-row">
+                    <span class="price-label">Price</span>
+                    <span class="price-value">{formattedPrice}</span>
+                </div>
+
+                <template if:true={item.Description__c.value}>
+                    <p class="item-description">{item.Description__c.value}</p>
+                </template>
+
+                <lightning-button
+                    label="Add to Cart"
+                    variant="brand"
+                    disabled={isUnavailable}
+                    onclick={handleAddToCart}
+                    class="cart-btn">
+                </lightning-button>
+            </div>
+        </template>
+
+        <template if:false={hasItem}>
+            <div class="empty-state">
+                <div class="empty-icon">🍽️</div>
+                <p class="empty-text">Select an item to view details</p>
+            </div>
+        </template>
+    </div>
+</template>

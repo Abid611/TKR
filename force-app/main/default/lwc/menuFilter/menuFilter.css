@@ -1,0 +1,93 @@
+.filter-panel {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.filter-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: #032d60;
+    border-bottom: 2px solid #0176d3;
+    padding-bottom: 0.5rem;
+}
+
+.filter-section {
+    margin-bottom: 1.25rem;
+}
+
+.filter-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.reset-btn {
+    margin-top: 0.5rem;
+}
+
+/* ── Category checkboxes ── */
+.category-check {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.category-check input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    flex-shrink: 0;
+    accent-color: #0176d3;
+}
+
+.category-check label {
+    cursor: pointer;
+    font-size: 0.875rem;
+    color: #333;
+}
+
+/* ── Drawer header (close button shown on mobile only) ── */
+.drawer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0 0.75rem;
+    border-bottom: 2px solid #0176d3;
+    margin-bottom: 0.75rem;
+}
+
+.drawer-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #032d60;
+}
+
+.close-btn {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.1rem;
+    cursor: pointer;
+    color: #666;
+    min-width: 44px;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+.close-btn:hover {
+    background: #f0f0f0;
+}
+
+@media (max-width: 768px) {
+    .close-btn {
+        display: flex;
+    }
+}
