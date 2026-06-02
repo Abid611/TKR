@@ -7,15 +7,15 @@
             <div class="item-image-container">
                 <img
                     src={item.imageUrl}
-                    alt={item.Name.value}
+                    alt={item.Name}
                     class="item-image" />
             </div>
 
             <div class="item-info">
-                <h2 class="item-name">{item.Name.value}</h2>
+                <h2 class="item-name">{item.Name}</h2>
 
                 <div class="item-meta">
-                    <span class="category-badge">{item.Category__c.value}</span>
+                    <span class="category-badge">{item.Category__c}</span>
                     <span class={availabilityClass}>{availabilityText}</span>
                 </div>
 
@@ -24,8 +24,8 @@
                     <span class="price-value">{formattedPrice}</span>
                 </div>
 
-                <template if:true={item.Description__c.value}>
-                    <p class="item-description">{item.Description__c.value}</p>
+                <template if:true={item.Description__c}>
+                    <p class="item-description">{item.Description__c}</p>
                 </template>
 
                 <lightning-button

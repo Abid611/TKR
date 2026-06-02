@@ -8,21 +8,21 @@ export default class MenuItemDetail extends LightningElement {
     }
 
     get isUnavailable() {
-        return this.item?.Available__c?.value === false;
+        return this.item?.Available__c === false;
     }
 
     get availabilityText() {
-        return this.item?.Available__c?.value ? 'In Stock' : 'Unavailable';
+        return this.item?.Available__c ? 'In Stock' : 'Unavailable';
     }
 
     get availabilityClass() {
-        return this.item?.Available__c?.value
+        return this.item?.Available__c
             ? 'availability-pill available'
             : 'availability-pill unavailable';
     }
 
     get formattedPrice() {
-        const price = this.item?.Price__c?.value;
+        const price = this.item?.Price__c;
         if (price == null) return '--';
         return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(price);
     }

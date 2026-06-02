@@ -1,6 +1,6 @@
 import { LightningElement, wire, track } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
-import { gql, graphql } from 'lightning/uiGraphQLApi';
+import getAllMenuItems from '@salesforce/apex/OrderController.getAllMenuItems';
 import placeOrder from '@salesforce/apex/OrderController.placeOrder';
 
 const CATEGORY_IMAGES = {
@@ -12,26 +12,6 @@ const CATEGORY_IMAGES = {
 };
 const DEFAULT_IMAGE = 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&auto=format&fit=crop';
 
-const GET_MENU_ITEMS = gql`
-    query {
-        uiapi {
-            query {
-                Menu_Item__c(first: 50) {
-                    edges {
-                        node {
-                            Id
-                            Name { value }
-                            Category__c { value }
-                            Price__c { value }
-                            Available__c { value }
-                            Description__c { value }
-                        }
-                    }
-                }
-            }
-        }
-    }
-`;
 
 export default class MenuTKR extends NavigationMixin(LightningElement) {
     allMenuItems = [];
@@ -68,22 +48,19 @@ export default class MenuTKR extends NavigationMixin(LightningElement) {
 
     // ── GraphQL wire ──
 
-    @wire(graphql, { query: GET_MENU_ITEMS })
-    wiredMenu({ data, errors }) {
+    @wire(getAllMenuItems)
+    wiredMenu({ data, error }) {
         if (data) {
-            this.allMenuItems = data.uiapi.query.Menu_Item__c.edges.map(edge => {
-                const node = edge.node;
-                return {
-                    ...node,
-                    formattedPrice: node.Price__c?.value != null
-                        ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(node.Price__c.value)
-                        : '--',
-                    imageUrl: CATEGORY_IMAGES[node.Category__c?.value] ?? DEFAULT_IMAGE
-                };
-            });
+            this.allMenuItems = data.map(item => ({
+                ...item,
+                formattedPrice: item.Price__c != null
+                    ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(item.Price__c)
+                    : '--',
+                imageUrl: CATEGORY_IMAGES[item.Category__c] ?? DEFAULT_IMAGE
+            }));
         }
-        if (errors) {
-            console.error('[menuTKR] GraphQL error:', JSON.stringify(errors));
+        if (error) {
+            console.error('[menuTKR] Apex error:', JSON.stringify(error));
         }
     }
 
@@ -95,19 +72,19 @@ export default class MenuTKR extends NavigationMixin(LightningElement) {
 
         if (searchTerm) {
             const term = searchTerm.toLowerCase();
-            items = items.filter(item => item.Name.value.toLowerCase().includes(term));
+            items = items.filter(item => item.Name.toLowerCase().includes(term));
         }
         if (categories.length > 0) {
-            items = items.filter(item => categories.includes(item.Category__c.value));
+            items = items.filter(item => categories.includes(item.Category__c));
         }
         if (minPrice != null) {
-            items = items.filter(item => item.Price__c.value >= minPrice);
+            items = items.filter(item => item.Price__c >= minPrice);
         }
         if (maxPrice != null) {
-            items = items.filter(item => item.Price__c.value <= maxPrice);
+            items = items.filter(item => item.Price__c <= maxPrice);
         }
         if (availableOnly) {
-            items = items.filter(item => item.Available__c?.value === true);
+            items = items.filter(item => item.Available__c === true);
         }
         return items;
     }
@@ -151,8 +128,8 @@ export default class MenuTKR extends NavigationMixin(LightningElement) {
                 ...this.cartItems,
                 {
                     id: menuItem.Id,
-                    name: menuItem.Name.value,
-                    price: menuItem.Price__c.value,
+                    name: menuItem.Name,
+                    price: menuItem.Price__c,
                     quantity: 1,
                     imageUrl: menuItem.imageUrl
                 }
@@ -211,11 +188,17 @@ export default class MenuTKR extends NavigationMixin(LightningElement) {
     handleNewOrder() { this.orderNumber = null; }
 
     handleTrackOrder() {
-        const isExperienceCloud = window.location.pathname.includes('/s/');
-        if (isExperienceCloud) {
+        const isLWRSite = window.location.hostname.includes('.my.site.com');
+        const isAuraCommunity = window.location.pathname.includes('/s/');
+        if (isLWRSite) {
+            this[NavigationMixin.Navigate]({
+                type: 'standard__webPage',
+                attributes: { url: '/my-order?orderNumber=' + encodeURIComponent(this.orderNumber) }
+            });
+        } else if (isAuraCommunity) {
             this[NavigationMixin.Navigate]({
                 type: 'comm__namedPage',
-                attributes: { name: 'My_Order__c' },
+                attributes: { name: 'my-order' },
                 state: { orderNumber: this.orderNumber }
             });
         } else {

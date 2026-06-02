@@ -328,7 +328,6 @@ public without sharing class OrderController {
             return [
                 SELECT Id, Name, Category__c, Price__c, Available__c, Description__c
                 FROM Menu_Item__c
-                WITH USER_MODE
                 ORDER BY Category__c ASC, Name ASC
                 LIMIT 200
             ];
